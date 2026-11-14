@@ -257,28 +257,21 @@ html[lang="crh"] .network-crh { display: inline; }
   flex: none;
 }
 
-.year-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  min-width: 0;
-}
-
-.year-chip {
-  flex: none;
+.year-select {
+  min-height: 44px;
+  min-width: 100px;
+  padding: 8px 14px;
   border: 1.5px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 13px;
-  padding: 7px 14px;
   border-radius: var(--radius-pill);
+  background: var(--card);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
-  transition: border-color .15s, color .15s, background .15s;
 }
-
-.year-chip:hover { border-color: var(--ink); color: var(--ink); }
+.year-select:hover { border-color: var(--ink); }
+.year-select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* ---------- priority filter toggle ---------- */
 
@@ -347,11 +340,6 @@ html[lang="crh"] .network-crh { display: inline; }
   color: var(--text);
 }
 
-.year-chip.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #fff;
-}
 
 /* ---------- stat tiles ---------- */
 

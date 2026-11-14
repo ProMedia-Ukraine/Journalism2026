@@ -1,4 +1,4 @@
-const DEFAULT_YEAR = DB.years[DB.years.length - 1];
+const DEFAULT_YEAR = DB.byYear[2026] ? 2026 : DB.years[DB.years.length - 1];
 
 const state = {
   degree: "master",
@@ -122,21 +122,26 @@ function renderStats(snap, rows) {
   document.getElementById("stat-count").textContent = rows.length;
 }
 
-function renderYearChips() {
-  const wrap = document.getElementById("year-chips");
-  wrap.innerHTML = "";
-  DB.years.forEach((year) => {
-    const btn = document.createElement("button");
-    btn.className = "year-chip" + (year === state.year ? " active" : "");
-    btn.textContent = String(year);
-    btn.addEventListener("click", () => {
-      if (state.year === year) return;
-      state.year = year;
-      state.dateIndex = DB.byYear[year].dates.length - 1;
-      state.expanded = false;
-      render();
-    });
-    wrap.appendChild(btn);
+function renderYearSelect() {
+  const select = document.getElementById("year-select");
+  select.innerHTML = "";
+  [...DB.years].reverse().forEach((year) => {
+    const option = document.createElement("option");
+    option.value = String(year);
+    option.textContent = String(year);
+    select.appendChild(option);
+  });
+  select.value = String(state.year);
+}
+
+function initYearSelect() {
+  document.getElementById("year-select").addEventListener("change", (event) => {
+    const year = Number(event.target.value);
+    if (!DB.byYear[year] || state.year === year) return;
+    state.year = year;
+    state.dateIndex = DB.byYear[year].dates.length - 1;
+    state.expanded = false;
+    render();
   });
 }
 
@@ -355,7 +360,7 @@ function render() {
     showAllBtn.style.display = "none";
   }
 
-  renderYearChips();
+  renderYearSelect();
   renderDateChips();
 }
 
@@ -469,6 +474,7 @@ function initUniSearch() {
 }
 
 function boot() {
+  initYearSelect();
   initTabs();
   initSortTabs();
   initPriorityToggle();

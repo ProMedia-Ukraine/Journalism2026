@@ -19,7 +19,7 @@
 <meta name="twitter:title" content="Рейтинг журфаків України. Вступ на «Журналістику»" data-i18n-content="meta.indexTitle" />
 <meta name="twitter:description" content="Рейтинг журфаків України за кількістю поданих заяв і середнім конкурсним балом вступників на спеціальність «Журналістика». Дані ЄДЕБО." data-i18n-content="meta.indexDesc" />
 <link rel="icon" href="favicon.png" type="image/png" />
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style.css?v=20261114-year-select" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://news.promedia.report/js/promedia-analytics.js"></script>
 </head>
@@ -51,8 +51,8 @@
       </div>
 
       <div class="year-row">
-        <span class="year-row-label" data-i18n="year.label">Рік вступу</span>
-        <div class="year-chips" id="year-chips"></div>
+        <label class="year-row-label" for="year-select" data-i18n="year.label">Рік вступу</label>
+        <select class="year-select" id="year-select"></select>
       </div>
 
       <div class="controls">
@@ -157,7 +157,7 @@
 
 <script src="js/i18n.js?v=20261002-paths"></script>
 <script src="js/data.js?v=20261031-root"></script>
-<script src="js/app.js?v=20261114-top5"></script>
+<script src="js/app.js?v=20261114-year-select"></script>
 <script defer src="https://news.promedia.report/js/promedia-memorial-popup.js"></script>
 <promedia-global-footer></promedia-global-footer>
 <script defer src="https://news.promedia.report/js/promedia-global-shell.js"></script>

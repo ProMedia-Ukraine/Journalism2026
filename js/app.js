@@ -318,7 +318,7 @@ function render() {
 
   renderStats(snap, rows);
 
-  const VISIBLE_ROWS = 10;
+  const VISIBLE_ROWS = 5;
   const tbody = document.getElementById("rank-body");
   tbody.innerHTML = "";
 

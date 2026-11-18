@@ -42,6 +42,9 @@ const I18N = {
       priorityOnly: "Лише 1 та 2 пріоритет",
       budgetOnly: "Лише бюджет"
     },
+    filters: {
+      button: "Фільтри"
+    },
     search: {
       placeholder: "Знайти заклад освіти…"
     },
@@ -175,6 +178,9 @@ const I18N = {
       priorityOnly: "1st & 2nd priority only",
       budgetOnly: "Budget only"
     },
+    filters: {
+      button: "Filters"
+    },
     search: {
       placeholder: "Find an institution…"
     },
@@ -304,6 +310,9 @@ const I18N = {
     filter: {
       priorityOnly: "Tek 1 ve 2 ögelik",
       budgetOnly: "Tek byudjet"
+    },
+    filters: {
+      button: "Filtrler"
     },
     search: {
       placeholder: "Oquv yurtunı tapmaq…"

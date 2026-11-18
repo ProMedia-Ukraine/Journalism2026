@@ -290,6 +290,7 @@ function renderSystemCharts() {
 }
 
 function render() {
+  updateFiltersSummaryLater();
   const yearData = activeYearData();
   const snap = currentSnapshot();
   /* Попередній знімок без додаткових розбивок: ховаємо перемикачі й
@@ -455,6 +456,30 @@ function renderUniSearchOptions() {
   datalist.innerHTML = items.map((it) => `<option value="${it.name.replace(/"/g, "&quot;")}"></option>`).join("");
 }
 
+function updateFiltersSummaryLater() { Promise.resolve().then(updateFiltersSummary); }
+
+/* Усі фільтри згорнуто під одну кнопку «Фільтри», щоб рейтинг починався з першого екрана.
+   На кнопці — короткий підсумок поточного вибору. */
+function updateFiltersSummary() {
+  const el = document.getElementById("filters-summary");
+  if (!el) return;
+  const extra = (state.priorityOnly ? 1 : 0) + (state.budgetOnly ? 1 : 0);
+  el.textContent = `${state.year} · ${t("degree." + state.degree)}${extra ? ` · +${extra}` : ""}`;
+}
+
+function initFiltersPanel() {
+  const btn = document.getElementById("filters-btn");
+  const panel = document.getElementById("filters-panel");
+  if (!btn || !panel) return;
+  btn.addEventListener("click", () => {
+    const open = panel.hidden;
+    panel.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+    btn.classList.toggle("is-open", open);
+    if (open) resyncIndicators();
+  });
+}
+
 function initUniSearch() {
   const input = document.getElementById("uni-search");
   if (!input) return;
@@ -481,6 +506,7 @@ function boot() {
   initBudgetToggle();
   initShowAll();
   initUniSearch();
+  initFiltersPanel();
   window.onLangChange = () => { render(); resyncIndicators(); renderSystemCharts(); renderUniSearchOptions(); };
   window.addEventListener("edbo-data-updated", () => { render(); resyncIndicators(); renderSystemCharts(); renderUniSearchOptions(); });
   render();

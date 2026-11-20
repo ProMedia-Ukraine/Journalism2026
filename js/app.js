@@ -312,7 +312,12 @@ function render() {
   const minApps = DB.minApplications[state.degree];
 
   const labelSuffix = SUFFIX_TO_LABEL[metricSuffix()];
-  document.getElementById("caption").textContent = isFinal
+  // Підпис без фільтрів для підсумкових даних не показуємо (рішення власника, 20.11.2026);
+  // підписи з увімкненими фільтрами й «Станом на…» лишаються — вони пояснюють, що саме видно.
+  const captionEl = document.getElementById("caption");
+  const hideCaption = isFinal && labelSuffix === "";
+  captionEl.hidden = hideCaption;
+  captionEl.textContent = hideCaption ? "" : isFinal
     ? t(`caption.final${labelSuffix}`, { year: state.year, minApps })
     : t(`caption.live${labelSuffix}`, { date: fmtDateUA(snap.date), minApps });
 

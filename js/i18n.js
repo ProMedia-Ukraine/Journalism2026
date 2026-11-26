@@ -632,6 +632,7 @@ function applyStaticI18n() {
     const value = tRaw(el.dataset.i18nHtml);
     if (value != null) el.innerHTML = value;
   });
+  setupMethodologyAccordion();
   document.querySelectorAll("[data-i18n-content]").forEach((el) => {
     const value = tRaw(el.dataset.i18nContent);
     if (value != null) el.setAttribute("content", value);
@@ -641,6 +642,52 @@ function applyStaticI18n() {
     if (value != null) el.setAttribute("placeholder", value);
   });
   syncNetworkLinks();
+}
+
+// Мобільна версія: пункти методології згортаються — видно лише заголовки,
+// текст відкривається натиском. На десктопі все показано, як і раніше.
+const METHODOLOGY_MOBILE_MQ = window.matchMedia("(max-width: 619px)");
+
+function syncMethodologyAccordion() {
+  const mobile = METHODOLOGY_MOBILE_MQ.matches;
+  document.querySelectorAll(".methodology-grid article > h3").forEach((h) => {
+    if (mobile) {
+      h.setAttribute("role", "button");
+      h.setAttribute("tabindex", "0");
+      h.setAttribute("aria-expanded", h.parentElement.classList.contains("open") ? "true" : "false");
+    } else {
+      h.removeAttribute("role");
+      h.removeAttribute("tabindex");
+      h.removeAttribute("aria-expanded");
+    }
+  });
+}
+
+function toggleMethodologyItem(h) {
+  if (!METHODOLOGY_MOBILE_MQ.matches) return;
+  const open = h.parentElement.classList.toggle("open");
+  h.setAttribute("aria-expanded", open ? "true" : "false");
+}
+
+let methodologyAccordionBound = false;
+function setupMethodologyAccordion() {
+  syncMethodologyAccordion();
+  if (methodologyAccordionBound) return;
+  methodologyAccordionBound = true;
+  document.addEventListener("click", (e) => {
+    const h = e.target.closest && e.target.closest(".methodology-grid article > h3");
+    if (h) toggleMethodologyItem(h);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const h = e.target.closest && e.target.closest(".methodology-grid article > h3");
+    if (!h || !METHODOLOGY_MOBILE_MQ.matches) return;
+    e.preventDefault();
+    toggleMethodologyItem(h);
+  });
+  if (METHODOLOGY_MOBILE_MQ.addEventListener) {
+    METHODOLOGY_MOBILE_MQ.addEventListener("change", syncMethodologyAccordion);
+  }
 }
 
 function initLangToggle() {

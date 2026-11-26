@@ -1066,6 +1066,39 @@ td {
   .methodology-grid { columns: 2; }
 }
 
+@media (max-width: 619px) {
+  .methodology h2 { margin-bottom: 12px; }
+  .methodology-grid article {
+    margin: 0;
+    border-top: 1px solid var(--border);
+  }
+  .methodology-grid article:last-child { border-bottom: 1px solid var(--border); }
+  .methodology-grid article > h3 {
+    position: relative;
+    margin: 0;
+    padding: 14px 28px 14px 0;
+    cursor: pointer;
+    line-height: 1.35;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .methodology-grid article > h3::after {
+    content: "";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform .2s ease;
+  }
+  .methodology-grid article.open > h3::after { transform: translateY(-30%) rotate(-135deg); }
+  .methodology-grid article > :not(h3) { display: none; }
+  .methodology-grid article.open > :not(h3) { display: block; }
+  .methodology-grid article.open > p:last-child { margin-bottom: 16px; }
+}
+
 @media (max-width: 480px) {
   table { table-layout: fixed; }
   th, td { padding-left: 10px; padding-right: 10px; }
